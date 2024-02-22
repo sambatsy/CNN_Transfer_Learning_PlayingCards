@@ -1,3 +1,6 @@
+device = torch.device("cuda:0")
+model_ft.to(device)
+
 num_epochs = 5
 lr = 0.001
 momentum = 0.9
@@ -10,10 +13,11 @@ for i in range(num_epochs):
   correct_predictions = 0
   total_predictions = 0
   for batch_idx, (images,labels), in enumerate (train_loader):
+    #X,y = batch[0].to(device), batch[1].to(device)
     images = images.to(device)
     labels = labels.to(device)
 
-    outputs = efficientnet(images)
+    outputs = model_ft(images)
     loss = get_loss(outputs, labels)
 
     opt.zero_grad()
